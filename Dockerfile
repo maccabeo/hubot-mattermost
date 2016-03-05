@@ -29,5 +29,5 @@ ENV MATTERMOST_SELFSIGNED_CERT=
 
 EXPOSE 8080
 
-CMD -a mattermost
-ENTRYPOINT bin/hubot
+ENTRYPOINT ["bin/hubot"]
+CMD ["-a", "mattermost"]
