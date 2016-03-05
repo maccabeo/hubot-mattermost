@@ -1,6 +1,8 @@
 FROM node:0.12.11
 MAINTAINER Reiji Sakao <reiji.sakao@gmail.com>
+
 RUN npm install -g yo generator-hubot && useradd hubot -m -s /bin/sh
+
 USER hubot
 WORKDIR /home/hubot
 
@@ -26,9 +28,6 @@ ENV MATTERMOST_ICON_URL=
 ENV MATTERMOST_SELFSIGNED_CERT=
 
 EXPOSE 8080
-
-CMD bin/hubot -a mattermost
-
 
 CMD -a mattermost
 ENTRYPOINT bin/hubot
