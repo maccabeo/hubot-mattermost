@@ -40,3 +40,8 @@ MATTERMOST_ICON_URL
 MATTERMOST_SELFSIGNED_CERT
 ```
 enviroment detail [renanvicente/hubot-mattermost](https://github.com/renanvicente/hubot-mattermost/blob/master/README.md#environment-variables)
+
+### Custom Docker images
+```
+$ docker run -it -u root --entrypoint bash rsakao/hubot-mattermost:1.0
+```
