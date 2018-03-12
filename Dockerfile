@@ -1,16 +1,21 @@
-FROM node:0.12.11
-MAINTAINER Reiji Sakao <reiji.sakao@gmail.com>
+#FROM node:0.12.11
+FROM node:alpine
+MAINTAINER Mattia Moretti <mattia.moretti@trithemius.at>
 
-RUN npm install -g yo generator-hubot && useradd hubot -m -s /bin/sh
+RUN npm install -g yo generator-hubot # && useradd hubot -m -s /bin/sh
+
+RUN adduser -D -h /home/hubot hubot
 
 USER hubot
 WORKDIR /home/hubot
 
+
+
 ENV HUBOT_NAME matterbot
 ENV HUBOT_OWNER someone
 ENV HUBOT_DESCRIPTION hubot in mattermost
-RUN echo no | yo hubot --adapter=mattermost --name=$HUBOT_NAME --owner=$HUBOT_OWNER --description=$HUBOT_DESCRIPTION && \
-sed -i /heroku/d ./external-scripts.json
+RUN yo hubot --adapter=mattermost --name=$HUBOT_NAME --owner=$HUBOT_OWNER --description=$HUBOT_DESCRIPTION && \
+sed -i /heroku/d ./external-scripts.json && npm install hubot-scripts && npm install hubot-docker hubot-grafana hubot-script-shellcmd --save
 
 # listen endpoint
 ENV MATTERMOST_ENDPOINT /hubot/incoming
@@ -26,6 +31,7 @@ ENV MATTERMOST_CHANNEL=
 ENV MATTERMOST_ICON_URL=
 # optional: if you want to ignore self signed certificate
 ENV MATTERMOST_SELFSIGNED_CERT=
+
 
 EXPOSE 8080
 
